@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="addedplayers"></div>
+    <div id="addingplayers"></div>
+    <button id="addplayer">Add Player ➕</button>
+  </body>
+
+  <script>
+    document.getElementById("addplayer").addEventListener("click", () => {
+      const form = document.createElement("form");
+      form.style.background = "green";
+      form.style.padding = "10px";
+
+      const userlabel = document.createElement("label");
+      userlabel.innerText = "Username: ";
+      const userinput = document.createElement("input");
+      userinput.type = "text";
+      userinput.placeholder = "Enter username";
+
+      const rollnolabel = document.createElement("label");
+      rollnolabel.innerText = "rollno: ";
+      const rollnoinput = document.createElement("input");
+      rollnoinput.type = "text";
+      rollnoinput.placeholder = "Enter rollno";
+
+      const button = document.createElement("button");
+      button.innerText = "Add Player";
+      button.id = "addplayerbutton";
+      button.type = "submit";
+
+      form.appendChild(userlabel);
+      form.appendChild(userinput);
+      form.appendChild(rollnolabel);
+      form.appendChild(rollnoinput);
+      form.appendChild(button);
+
+      document.getElementById("addingplayers").appendChild(form);
+      console.log("Adding Player..");
+
+      form.addEventListener("submit", (e) => {
+        isInternalChange = true;
+        e.preventDefault();
+        const username = userinput.value;
+        const rollno = rollnoinput.value;
+        const playerdiv = document.createElement("div");
+        playerdiv.style.background = "blue";
+        playerdiv.style.padding = "10px";
+        playerdiv.style.borderRadius = "5px";
+        playerdiv.style.margin = "10px";
+
+        const uservalue = userinput.value;
+        const rollnovalue = rollnoinput.value;
+
+        const usernamep = document.createElement("p");
+        usernamep.innerText = `Username: ${uservalue}`;
+        playerdiv.appendChild(usernamep);
+
+        const rollnop = document.createElement("p");
+        rollnop.innerText = `rollno: ${rollnovalue}`;
+        playerdiv.appendChild(rollnop);
+
+        document.getElementById("addedplayers").appendChild(playerdiv);
+        document.getElementById("addingplayers").removeChild(form);
+        console.log("Added Player!");
+
+        setTimeout(() => {
+          isInternalChange = false;
+        }, 1000);
+      });
+    });
+
+    var isInternalChange = false;
+    const playersdiv = document.getElementById("addedplayers");
+    const mutationobserver = new MutationObserver(() => {
+      if (!isInternalChange) {
+        alert("Just create a update function bro...");
+      }
+    });
+
+    mutationobserver.observe(playersdiv, {
+      childList: true,
+      attributes: true,
+      subtree: true,
+      characterData: true,
+    });
+  </script>
+</html>

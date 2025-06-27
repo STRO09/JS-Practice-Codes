@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <label for="Name">Name: </label><br />
+      <input type="text" id="Name" name="Name" /><br />
+      <label for="Job">Job: </label><br />
+      <input type="text" id="Job" name="Job" /><br />
+      <button type="submit">Submit</button>
+    </form>
+    <div id="resultdata"></div>
+    <div>
+      <p>Update your data:</p>
+      <form id="updateform">
+        <label for="Name1">Name: </label><br />
+        <input type="text" id="Name1" name="Name1" /><br />
+        <label for="Job1">Job: </label><br />
+        <input type="text" id="Job1" name="Job1" /><br />
+        <button type="submit">Update</button>
+      </form>
+    </div>
+    <div>
+      <p>CLick button to view all data: <button id="get">GET</button></p>
+    </div>
+
+    <div id="alldata"></div>
+  </body>
+  <script>
+    // POST
+    const form = document.querySelector("form");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const Name = document.getElementById("Name").value;
+      const Job = document.getElementById("Job").value;
+
+      const data = { name: Name, Job: Job };
+
+      const xmlhttprequest = new XMLHttpRequest();
+      xmlhttprequest.open("POST", "https://reqres.in/api/users");
+      xmlhttprequest.setRequestHeader("Content-Type", "application/json");
+
+      xmlhttprequest.onload = () => {
+        const resultdata = document.getElementById("resultdata");
+        const responsep = document.createElement("p");
+        responsep.innerText = "Response: " + xmlhttprequest.responseText;
+        resultdata.appendChild(responsep);
+      };
+
+      xmlhttprequest.onerror = () => {
+        console.log("Error");
+        resultdata.innerHTML = "<p>Error parsing data</p>";
+      };
+
+      xmlhttprequest.send(JSON.stringify(data));
+    });
+
+    //GET
+    const getbutton = document.getElementById("get");
+    getbutton.addEventListener("click", () => {
+      const xmlhttprequest = new XMLHttpRequest();
+      xmlhttprequest.open("GET", "https://reqres.in/api/users?page=2");
+      xmlhttprequest.onload = () => {
+        const alldatacontent = xmlhttprequest.responseText;
+        const alldata = document.getElementById("alldata");
+        alldata.appendChild(document.createTextNode(alldatacontent));
+      };
+
+      xmlhttprequest.onerror = () => {
+        console.log("Error");
+        alldata.innerHTML = "<p>Error parsing data</p>";
+      };
+      xmlhttprequest.send();
+    });
+
+    // PUT 
+    const updateform = document.getElementById("updateform");
+    updateform.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("Name1").value;
+      const job = document.getElementById("Job1").value;
+
+      const data = { name: name, job: job };
+
+      const xmlhttprequest = new XMLHttpRequest();
+      xmlhttprequest.open("PUT", "https://reqres.in/api/users/2");
+      xmlhttprequest.setRequestHeader("Content-Type", "application/json");
+
+      xmlhttprequest.onload = () => {
+        const resultdata = document.getElementById("resultdata");
+        const responsep = document.createElement("p");
+        responsep.innerText = "Response: " + xmlhttprequest.responseText;
+        resultdata.appendChild(responsep);
+      };
+
+      xmlhttprequest.onerror = () => { 
+        console.log("Error");
+        resultdata.innerHTML = "<p>Error parsing data</p>";
+      }
+
+      xmlhttprequest.send(JSON.stringify(data));
+    });
+  </script>
+</html>

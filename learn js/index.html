@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn JS</title>
+  </head>
+
+  <!-- *******Commenting Everything USeless or wrong****** -->
+
+  <body>
+    <h1 class="Classh">This is a Header</h1>
+    <p id="para1">This is a paragraph</p>
+
+    <div>
+      <p>This is also a para</p>
+    </div>
+    <div>
+      <p>This is also a para</p>
+    </div>
+    <div>
+      <p>This is also a para</p>
+    </div>
+
+    <p id="parahidden" style="display: none">HIDDEN PARA ALSO REVEALED</p>
+
+    <button id="btn1">Show Sequence</button>
+
+    <h2 class="Classh">This is header of same class</h2>
+    <h2 class="Classh">This is header of same class</h2>
+
+    <p>Anyways, Enter your name: <input id="dareinput" type="text" /></p>
+
+    <!-- Event bubbling -->
+    <div id="outer" style="padding: 20px; background: lightblue">
+      <p id="paraevent">
+        <button id="inner">Click me for event bubbling</button>
+      </p>
+    </div>
+
+
+       <!-- Event Delegation -->
+    <ul id ="list">
+      <li>This is list eelement 1</li>
+      <li>This is list eelement 2</li>
+      <li>This is list eelement 3</li>
+      <li>This is list eelement 4</li>
+    </ul>
+  </body>
+
+  <script>
+    const idelements = document.getElementById("para1");
+    idelements.style.color = "red";
+    idelements.innerHTML = "<strong>This is a strong para</strong>";
+    console.log(idelements);
+
+    // console.log(idelements.value);
+    // idelements.value = "Setting Value";
+    //   console.log(idelements.value);
+
+    idelements.addEventListener("click", () => {
+      alert("para clicked");
+      const idelements = (document.getElementById("para1").innerText =
+        "BOO !  ");
+    });
+
+    //idelements.setAttribute("src", "https://img-9gag-fun.9cache.com/photo/aegzbDB_700bwp.webp");
+
+    const divelements = (document.querySelector("div").innerText =
+      "This is a div");
+
+    document.getElementById("btn1").addEventListener("click", () => {
+      var i = 1;
+      document.querySelectorAll("div").forEach((div) => {
+        div.innerHTML = `<p>This is div ${i}</p> `;
+        i++;
+      });
+      document.getElementById("parahidden").style.display = "block";
+    });
+
+    console.log(Array.from(document.getElementsByClassName("Classh")));
+
+    const dareinput = document
+      .getElementById("dareinput")
+      .addEventListener("input", (e) => {
+        alert("Type fast bro.");
+        console.log(e.type);
+        console.log(e.target.value);
+        console.log("bro is trying lmao");
+      });
+
+    // EVENT BUBBLING
+    document.getElementById("outer").addEventListener("click", () => {
+      console.log("Outer div clicked!");
+    });
+    document.getElementById("inner").addEventListener("click", () => {
+      console.log("Inner button clicked!");
+    });
+    document.getElementById("paraevent").addEventListener("click", () => {
+      console.log("Paragraph clicked!");
+    });
+
+
+    // EVENT DELEGATION
+    document.getElementById("list").addEventListener("click", (e) => {
+      if(e.target.innerText === "This is list eelement 2") {
+
+        alert(`You just clicked the sacred list item 2! with text:  ${e.target.innerText}`);
+      }
+
+      // DOM TRAVERSAL
+      e.target.nextElementSibling.addEventListener("click", () => {
+      alert("You made the next sibling of the list item 2 after clicking list item 2!");
+    })
+    });
+  </script>
+</html>
