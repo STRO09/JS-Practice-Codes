@@ -1,0 +1,45 @@
+<!-- Create a product form with fields for product name, price, and quantity. Use 
+JavaScript for client-side validation: 
+a. Product Name: Should not be empty. 
+b. Price: Should be a positive number. 
+c. Quantity: Should be a numeric value greater than 0. 
+d. Store the product’s details in local storage upon successful validation.  -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q4</title>
+</head>
+<body>
+    
+    <form>
+        <label for="productIn">Product Name: </label>
+        <input type="text" name="product" id="nameIn"> </br>
+        <label for="price">Product Price: </label>
+        <input type="number" name="price" id="priceIn" min=0> </br>
+        <label for="quantity">Product Quantity: </label>
+        <input type="number" name="quantity" id="quantIn" min=0> </br>
+        <button id="pBtn">Add</button>
+    </form>
+
+
+    <script>
+        localStorage.clear();
+    document.getElementById("pBtn").addEventListener("click",()=>{
+
+        nameReg =/^[A-Za-z]+$/;
+        if(!nameReg.test(document.getElementById("nameIn").value)){
+            alert(`Enter Valid Name`);
+        }
+        else {
+            localStorage.setItem("Name",document.getElementById("nameIn").value);
+            localStorage.setItem("Price",document.getElementById("priceIn").value);
+            localStorage.setItem("Quantity",document.getElementById("quantIn").value);
+        }
+    })        
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!-- Write JavaScript to create a new <li> element representing a product name, set its 
+text content, and append it to an existing <ul> of products. Store the product name 
+in local storage  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q1</title>
+</head>
+<body>
+   <label for="productIn">Add Your Product: </label>
+   <input type="text" name="productIn" id="pIn"> </br>
+   <button id="pBtn">Add</button>
+   <ul id="fruits">
+    <li>Apple</li>
+    <li>Orange</li>
+    <li>Bananas</li>
+    <li>Watermelon</li>
+   </ul>
+
+   <script>
+    localStorage.clear(); 
+    document.getElementById("pBtn").addEventListener("click",()=>{
+        if(document.getElementById("pIn").value!==null){
+        const newItem = document.createElement("li");
+        newItem.innerText = document.getElementById("pIn").value;
+        document.getElementById("fruits").appendChild(newItem);
+        // localStorage.setItem("Entered Product",document.getElementById("pIn").value);
+        let products = JSON.parse(localStorage.getItem("Entered Products")) || [] ; 
+        products.push(document.getElementById("pIn").value);
+        localStorage.setItem("Entered Products",JSON.stringify(products));
+    }
+    });
+   </script>
+</body>
+</html>

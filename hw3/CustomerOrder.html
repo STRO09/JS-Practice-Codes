@@ -1,0 +1,76 @@
+<!-- Create an order form with fields for customer name, product, and address. 
+Implement JavaScript validation to ensure: 
+a. Customer Name: Is not empty and contains only alphabetic characters. 
+b. Product: Matches one of the available products. 
+c. Address: Is not empty. 
+d. Store each order (customer name, product, address) in local storage after 
+validation. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q5</title>
+</head>
+<body>
+
+     <form>
+        <label for="customer">Customer Name: </label>
+        <input type="text" name="customer" id="customerIn"> </br>
+        <label for="product">Product: </label>
+        <input type="text" name="product" id="productIn" > </br>
+        <label for="address">Address: </label>
+        <input type="text" name="address" id="addressIn" > </br>
+        <button id="pBtn">Add</button>
+    </form>
+
+
+    <script>
+        localStorage.clear();
+
+        const Products = ["Pen","PEncil","Eraser","Sharpener"];
+        let i=0;
+
+        document.getElementById("pBtn").addEventListener("click",()=>{
+            event.preventDefault();
+
+            const custname = document.getElementById("customerIn").value;
+            const product = document.getElementById("productIn").value;
+            const address = document.getElementById("addressIn").value;
+            let productPresent=false;
+
+            custReg = /^[A-Za-z]+$/;
+            if(!custReg.test(custname)) {
+                alert(`Enter Valid Name`);
+            }
+            else {
+                if(!Products.includes(product)) {
+                    alert(`Product Not Present`);
+                }
+                else {
+                    if(address==""){
+                        alert(`Address is empty`);
+                    }
+                    else {
+                        customerdetails= [custname,product,address];
+                        let j=0;
+                        while(j<=i){
+                            let product = JSON.parse(localStorage.getItem("Customer Details-"+j));
+                            if(JSON.stringify(product)== JSON.stringify(customerdetails)) {
+                                productPresent = true;
+                            }
+                            j++;
+                        }
+                        if(!productPresent){
+                            localStorage.setItem("Customer Details-"+i,JSON.stringify(customerdetails));
+                            i++;
+                        }
+                    }
+                }
+            }
+        })   ;     
+    </script>
+</body>
+</html>

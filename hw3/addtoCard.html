@@ -1,0 +1,49 @@
+<!-- Implement an event listener that triggers an alert showing the number of items 
+added to the cart when a button with the ID "addToCart" is clicked. Track the item 
+count in local storage.  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q2</title>
+</head>
+<body>
+    <label for="productIn">Add Your Product: </label>
+   <input type="text" name="productIn" id="pIn">
+   <button id="pBtn">Add</button>
+   <ul id="products"></ul>
+   <button id="addToCart">Add to Cart</button>
+
+   <script>
+    let i=1;
+    let no=0;
+    document.getElementById("pBtn").addEventListener("click",()=>{
+        if(document.getElementById("pIn").value!==""){
+        const newItem = document.createElement("li");
+        newItem.innerText = document.getElementById("pIn").value;
+        newItem.id="item-"+i;
+        document.getElementById("products").appendChild(newItem);
+        no++;
+
+        const newBtn = document.createElement("button");
+        newBtn.innerText = "🗑️";
+        newBtn.addEventListener("click",()=>{
+            document.getElementById("products").removeChild(newItem);
+            no--;
+        });
+        document.getElementById("item-"+i).appendChild(newBtn);
+        i++;
+        
+    }
+    });
+
+    document.getElementById("addToCart").addEventListener("click",()=>{
+        if(no==0) alert("NO ITEMS IN THE CART PLEASE ADD ITEMS FOR THE CART");
+        else if(no==1) alert(`1 item in the cart`);
+        else alert(`${no} items currently in the cart`);
+    })
+   </script>
+</body>
+</html>

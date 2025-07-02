@@ -24,3 +24,4 @@ function applyCoupon(code) {
 
 applyCoupon("AW6670")
 applyCoupon("AW6675")
+
